@@ -4,7 +4,7 @@
 ### Features 
 * Cross-platform support for Windows and Linux
 * Filters out duplicate emojis using SHA1 file checksums.
-* Has and archival append option.
+* Has an archival append option.
  
  [![GitHub release](https://img.shields.io/github/v/release/noto-rious/DEB)](https://github.com/noto-rious/DEB/releases)
 
