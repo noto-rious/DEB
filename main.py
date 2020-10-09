@@ -20,8 +20,6 @@ isBusy = False
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-print(f'\33]0;DEB - Developed by: Notorious\a', end='', flush=True)
-
 if getattr(sys, 'frozen', False):
     application_path = os.path.dirname(sys.executable)
     running_mode = 'Frozen/executable'
@@ -78,7 +76,8 @@ print(color
 + "   ░   ░ ░ ░ ░ ░ ▒    ░      ░ ░ ░ ▒    ░░   ░  ▒ ░░ ░ ░ ▒   ░░░ ░ ░ ░  ░  ░  \n"
 + "         ░     ░ ░               ░ ░     ░      ░      ░ ░     ░           ░  \n"
 + res)
-version_num = 'v1.0.1'
+version_num = 'v1.0.3'
+print(f'\33]0;DEB ' + version_num + ' - Developed by: Notorious\a', end='', flush=True)
 r = requests.get('https://raw.githubusercontent.com/noto-rious/DEB/main/version.txt').text
 if r != version_num:
     print(color_err + 'Looks like you may not be running the most current version. Check https://noto.cf/deb for an update!' + res)
