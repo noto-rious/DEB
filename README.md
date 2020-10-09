@@ -8,9 +8,9 @@
 Edit `settings.json`
 ```
 {
-  "token":"Token_Here", // Replace Token_Here with your authorization token.
+  "token":"Token_Here", // Replace Token_Here with your user token.
   "command_prefix":".", // This is the command prefix for your trigger commands(.b, .ba)
-  "keep_dir":"false", // If this value is set to true it will basically append emojis rather than mirroring backups
+  "keep_dir":"false", // If this value is set to true it will append emojis to the folders rather than mirroring backups.
   "no_dupes":"true" // If this value is set to true it will filter duplicate emojis using SHA1 checksums.
 }
 ```
