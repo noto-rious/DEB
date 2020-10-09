@@ -78,7 +78,7 @@ print(color
 + "   ░   ░ ░ ░ ░ ░ ▒    ░      ░ ░ ░ ▒    ░░   ░  ▒ ░░ ░ ░ ▒   ░░░ ░ ░ ░  ░  ░  \n"
 + "         ░     ░ ░               ░ ░     ░      ░      ░ ░     ░           ░  \n"
 + res)
-version_num = 'v1.0.0'
+version_num = 'v1.0.1'
 r = requests.get('https://raw.githubusercontent.com/noto-rious/DEB/main/version.txt').text
 if r != version_num:
     print(color_err + 'Looks like you may not be running the most current version. Check https://noto.cf/deb for an update!' + res)
@@ -243,7 +243,7 @@ try:
             if no_dupes != False:
                 print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates found: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
             else:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(f'{EmojisDownloaded:,}') + res)
             return
         #get all emojis    
         if msg.content == command_prefix + 'ba' and msg.author == client.user:
@@ -279,9 +279,9 @@ try:
             time_took = time.time() - start_time
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color_p + 'Backup complete' + res + '.')
             if no_dupes != False:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates found: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates found: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(f'{EmojisDownloaded:,}') + res)
             else:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(f'{EmojisDownloaded:,}') + res)
             return
 
     client.run(token, bot=False)
