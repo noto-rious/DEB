@@ -185,7 +185,7 @@ try:
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + '.ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
 
     @client.event
     async def on_ready():
@@ -193,7 +193,7 @@ try:
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + '.ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
 
     @client.event
     async def on_message(msg):
@@ -207,7 +207,7 @@ try:
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + '.ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
         
         #get current guild emojis
         if msg.content == command_prefix + 'b' and msg.author == client.user:
