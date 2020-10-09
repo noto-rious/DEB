@@ -1,6 +1,11 @@
 # Discord Emoji Backup
  Discord Emoji Backup is a utility that allows you to create a backup of the emojis from your Discord server or all of the Discord servers your Discord account is in.
  
+### Features 
+* Cross-platform support for Windows and Linux
+* Filters out duplicate emojis using SHA1 file checksums.
+* Has and archival append option.
+ 
  [![GitHub release](https://img.shields.io/github/v/release/noto-rious/DEB)](https://github.com/noto-rious/DEB/releases)
 
 ![Screenshot](screenshot.png)
