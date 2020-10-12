@@ -1,5 +1,4 @@
 import discord
-from discord.ext import commands
 import logging
 import asyncio, json, time, traceback
 import sys, os
@@ -76,7 +75,7 @@ print(color
 + "   ░   ░ ░ ░ ░ ░ ▒    ░      ░ ░ ░ ▒    ░░   ░  ▒ ░░ ░ ░ ▒   ░░░ ░ ░ ░  ░  ░  \n"
 + "         ░     ░ ░               ░ ░     ░      ░      ░ ░     ░           ░  \n"
 + res)
-version_num = 'v1.0.3'
+version_num = 'v1.0.4'
 print(f'\33]0;DEB ' + version_num + ' - Developed by: Notorious\a', end='', flush=True)
 r = requests.get('https://raw.githubusercontent.com/noto-rious/DEB/main/version.txt').text
 if r != version_num:
@@ -88,8 +87,18 @@ if token == "Token_Here":
         sys.exit()
 
 client = discord.Client()
-bot = commands.Bot(command_prefix='.', self_bot=True)
 ready = False
+
+def progress(count, total, status=''):
+    bar_len = 8
+    filled_len = int(round(bar_len * count / float(total)))
+
+    percents = round(100.0 * count / float(total), 1)
+    bar =  '='  * filled_len + '-' * (bar_len - filled_len)
+    sys.stdout.write("\033[K")
+    sys.stdout.write('\r[%s %s%s] %s\r' % (bar, percents, '%', status))
+    
+    sys.stdout.flush()
 
 def calc_Chan():
     chans = 0
@@ -145,7 +154,6 @@ def save_emoji(url,path,guild,emoji):
                 if imgSHA1 in EmojiCache:
                     global Duplicates
                     Duplicates += 1
-                    print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color_p + format_p() + res + ' -> Duplicate Emoji #' + color + format_dupes() + res + ' from ' + color + guild + res)
                 else:
                     EmojiCache.append(imgSHA1)
                     if os.path.exists(path):
@@ -153,14 +161,12 @@ def save_emoji(url,path,guild,emoji):
                     with open(path, 'wb') as handler:
                         handler.write(r.content)
                         EmojisDownloaded += 1
-                        print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color_p + format_p() + res + ' -> Saved ' + color + format_ename(emoji) + res + ' from ' + color +  guild + res)
             else:
                 if os.path.exists(path):
                         os.remove(path)
                 with open(path, 'wb') as handler:
                     handler.write(r.content)
                     EmojisDownloaded += 1
-                    print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color_p +  format_p() + res + ' -> Saved ' + color + format_ename(emoji) + res + ' from ' + color +  guild + res)
     except requests.exceptions.Timeout:
         #timeout error
         save_emoji(url,path,guild,emoji)
@@ -184,7 +190,8 @@ try:
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix + 'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print()
 
     @client.event
     async def on_ready():
@@ -192,7 +199,8 @@ try:
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix +  'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print()
 
     @client.event
     async def on_message(msg):
@@ -202,20 +210,26 @@ try:
         global Duplicates
         global ready
         global EmojisDownloaded
+        global isBusy
 
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color +  '.b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
-        
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix + 'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print()
+
         #get current guild emojis
         if msg.content == command_prefix + 'b' and msg.author == client.user:
             start_time = time.time()
+            await msg.edit(content='x')
+            await msg.edit(content='xD')
             await msg.delete()
+            if isBusy == True:
+                 return
             if msg.guild == None:
                 print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color_p + '{}%'.format(int(100 * i / N)) + res + ' -> Discord Emoji Backup -> I\'m pretty sure I can\'t get emojis from DM\'s')
                 return
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color + '.b' + res + ' accepted in ' + str(msg.guild.name) +  '. Please wait...' + res)
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color + command_prefix + 'b' + res + ' accepted in ' + str(msg.guild.name) +  '. Please wait...' + res)
             if os.name == 'nt':
                 emoji_path = application_path + '\\' + clean_fs_str(str(client.user)) + '\\' + clean_fs_str(str(msg.guild.name)) + '\\'
                 create_dir(emoji_path)
@@ -226,7 +240,9 @@ try:
             guild = client.get_guild(msg.guild.id)
             GEmojiList = guild.emojis
 
+            isBusy = True
             i = 0
+            tmp_guild = ''
             N = len(GEmojiList)
             for emoji in GEmojiList:
                 emojiraw = str(emoji)
@@ -236,23 +252,33 @@ try:
                 else:
                     save_emoji('https://cdn.discordapp.com/emojis/' + str(emoji.id) + '.png?v=1', emoji_path + emoji.name + '.png',guild.name,emoji.name)
                 i += 1
-
+                tmp_guild = str(guild)
+                tmp_guild = (tmp_guild[:14] + '...') if len(tmp_guild) > 17 else tmp_guild
+                if no_dupes != False:
+                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates: ' + color + f'{Duplicates:,}' + res + ' -> Downloaded: ' + color + str(EmojisDownloaded) + res + ' from ' + color +  str(tmp_guild) + res)
+                else:
+                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Downloaded: ' + color + str(EmojisDownloaded) + res + ' from ' + color +  str(tmp_guild) + res)
             time_took = time.time() - start_time
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color_p + 'Backup complete' + res + '.')
             if no_dupes != False:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates found: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Duplicates Ignored: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
             else:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(f'{EmojisDownloaded:,}') + res)
+                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+            print()
+            print()
+            isBusy = False
             return
         #get all emojis    
         if msg.content == command_prefix + 'ba' and msg.author == client.user:
             start_time = time.time()
+            await msg.edit(content='x')
+            await msg.edit(content='xD')
             await msg.delete()
+            if isBusy == True:
+                 return
             if msg.guild == None:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color + '.ba' + res + ' accepted in ' + color + str(client.get_channel(msg.channel.id)) + res + '. Please wait...' + res)
+                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color +command_prefix +  'ba' + res + ' accepted in ' + color + str(client.get_channel(msg.channel.id)) + res + '. Please wait...' + res)
             else:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color + '.ba' + res + ' accepted in ' + color + str(msg.guild.name) + res + '. Please wait...' + res)
-        
+                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color +command_prefix +  'ba' + res + ' accepted in ' + color + str(msg.guild.name) + res + '. Please wait...' + res)
             for guild in client.guilds:
                 if os.name == 'nt':
                     emoji_path = application_path + '\\' + clean_fs_str(str(client.user)) + '\\' + clean_fs_str(guild.name) + '\\'
@@ -261,9 +287,11 @@ try:
                     emoji_path = application_path + '/' + clean_fs_str(str(client.user)) + '/' + clean_fs_str(guild.name) + '/'
                     create_dir(emoji_path)
 
+            tmp_guild = ''
             EmojiList = client.emojis
             i = 0
             N = len(EmojiList)
+            isBusy = True
             for emoji in EmojiList:
                 guild = emoji.guild
                 emojiraw = str(emoji)
@@ -274,13 +302,20 @@ try:
                 else:
                     save_emoji('https://cdn.discordapp.com/emojis/' + str(emoji.id) + '.png?v=1', emoji_path + emoji.name + '.png',guild.name,emoji.name)
                 i += 1
-
+                tmp_guild = str(guild)
+                tmp_guild = (tmp_guild[:14] + '...') if len(tmp_guild) > 17 else tmp_guild
+                if no_dupes != False:
+                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates: ' + color + f'{Duplicates:,}' + res + ' -> Downloaded: ' + color + str(EmojisDownloaded) + res + ' from ' + color +  str(tmp_guild) + res)
+                else:
+                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Downloaded: ' + color + str(EmojisDownloaded) + res + ' from ' + color +  str(tmp_guild) + res)
             time_took = time.time() - start_time
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color_p + 'Backup complete' + res + '.')
             if no_dupes != False:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates found: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(f'{EmojisDownloaded:,}') + res)
+                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Duplicates Ignored: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
             else:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Elapsed time: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(f'{EmojisDownloaded:,}') + res)
+                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+            print()
+            print()
+            isBusy = False
             return
 
     client.run(token, bot=False)
