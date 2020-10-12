@@ -57,7 +57,9 @@ no_dupes = bool(jdata['no_dupes'])
 os.environ["rg"] = str(jdata['command_prefix'])
 command_prefix = str(jdata['command_prefix'])
 
-color = fg('#4EC98F')
+color = fg('#13A10E')
+color2= fg('#ACACAB')
+color3 = fg('#FFFFFF')
 color_t = fg('#7D0068')
 color_p = fg('#FFCC00')
 color_err = fg('#FF0000')
@@ -65,17 +67,11 @@ color_err = fg('#FF0000')
 res = attr('reset')
 
 print(color
-+ " ███▄    █  ▒█████  ▄▄▄█████▓ ▒█████   ██▀███   ██▓ ▒█████   █    ██   ██████  \n"
-+ " ██ ▀█   █ ▒██▒  ██▒▓  ██▒ ▓▒▒██▒  ██▒▓██ ▒ ██▒▓██▒▒██▒  ██▒ ██  ▓██▒▒██    ▒  \n"
-+ "▓██  ▀█ ██▒▒██░  ██▒▒ ▓██░ ▒░▒██░  ██▒▓██ ░▄█ ▒▒██▒▒██░  ██▒▓██  ▒██░░ ▓██▄   \n"
-+ "▓██▒  ▐▌██▒▒██   ██░░ ▓██▓ ░ ▒██   ██░▒██▀▀█▄  ░██░▒██   ██░▓▓█  ░██░  ▒   ██▒\n"
-+ "▒██░   ▓██░░ ████▓▒░  ▒██▒ ░ ░ ████▓▒░░██▓ ▒██▒░██░░ ████▓▒░▒▒█████▓ ▒██████▒▒\n"
-+ "░ ▒░   ▒ ▒ ░ ▒░▒░▒░   ▒ ░░   ░ ▒░▒░▒░ ░ ▒▓ ░▒▓░░▓  ░ ▒░▒░▒░ ░▒▓▒ ▒ ▒ ▒ ▒▓▒ ▒ ░\n"
-+ "░ ░░   ░ ▒░  ░ ▒ ▒░     ░      ░ ▒ ▒░   ░▒ ░ ▒░ ▒ ░  ░ ▒ ▒░ ░░▒░ ░ ░ ░ ░▒  ░ ░\n"
-+ "   ░   ░ ░ ░ ░ ░ ▒    ░      ░ ░ ░ ▒    ░░   ░  ▒ ░░ ░ ░ ▒   ░░░ ░ ░ ░  ░  ░  \n"
-+ "         ░     ░ ░               ░ ░     ░      ░      ░ ░     ░           ░  \n"
++          "╔╦╗┬┌─┐┌─┐┌─┐┬─┐┌┬┐  ╔═╗┌┬┐┌─┐ ┬┬  ╔╗ ┌─┐┌─┐┬┌─┬ ┬┌─┐\n"
++ color2 + " ║║│└─┐│  │ │├┬┘ ││  ║╣ ││││ │ ││  ╠╩╗├─┤│  ├┴┐│ │├─┘\n"
++ color3 + "═╩╝┴└─┘└─┘└─┘┴└──┴┘  ╚═╝┴ ┴└─┘└┘┴  ╚═╝┴ ┴└─┘┴ ┴└─┘┴  \n"
 + res)
-version_num = 'v1.0.4'
+version_num = 'v1.0.5'
 print(f'\33]0;DEB ' + version_num + ' - Developed by: Notorious\a', end='', flush=True)
 r = requests.get('https://raw.githubusercontent.com/noto-rious/DEB/main/version.txt').text
 if r != version_num:
@@ -96,7 +92,7 @@ def progress(count, total, status=''):
     percents = round(100.0 * count / float(total), 1)
     bar =  '='  * filled_len + '-' * (bar_len - filled_len)
     sys.stdout.write("\033[K")
-    sys.stdout.write('\r[%s %s%s] %s\r' % (bar, percents, '%', status))
+    sys.stdout.write('\r[%s %s%s] %s\r' % (color + bar + res, color_p + str(percents), '%' + res, status))
     
     sys.stdout.flush()
 
@@ -190,7 +186,7 @@ try:
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix + 'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix + 'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + f'{len(client.guilds):,}' + res + ' servers.')
             print()
 
     @client.event
@@ -199,7 +195,7 @@ try:
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix +  'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix +  'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + f'{len(client.guilds):,}' + res + ' servers.')
             print()
 
     @client.event
@@ -215,7 +211,7 @@ try:
         if ready == False:
             ready = True
             print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> Welcome, ' + color + str(client.user) + res + '.')
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix + 'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + str(len(client.guilds)) + res + ' servers.')
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup is now listening for ' + color + command_prefix + 'b' + res + ' or ' + color + command_prefix + 'ba' + res + ' in ' + color + calc_Chan() + res + ' channels in ' + color + f'{len(client.guilds):,}' + res + ' servers.')
             print()
 
         #get current guild emojis
@@ -229,7 +225,7 @@ try:
             if msg.guild == None:
                 print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color_p + '{}%'.format(int(100 * i / N)) + res + ' -> Discord Emoji Backup -> I\'m pretty sure I can\'t get emojis from DM\'s')
                 return
-            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color + command_prefix + 'b' + res + ' accepted in ' + str(msg.guild.name) +  '. Please wait...' + res)
+            print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color + command_prefix + 'b' + res + ' accepted in ' + color + str(msg.guild.name) + res + '. Please wait...' + res)
             if os.name == 'nt':
                 emoji_path = application_path + '\\' + clean_fs_str(str(client.user)) + '\\' + clean_fs_str(str(msg.guild.name)) + '\\'
                 create_dir(emoji_path)
@@ -255,14 +251,14 @@ try:
                 tmp_guild = str(guild)
                 tmp_guild = (tmp_guild[:14] + '...') if len(tmp_guild) > 17 else tmp_guild
                 if no_dupes != False:
-                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates: ' + color + f'{Duplicates:,}' + res + ' -> Downloaded: ' + color + str(EmojisDownloaded) + res + ' from ' + color +  str(tmp_guild) + res)
+                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates: ' + color + f'{Duplicates:,}' + res + ' -> Downloaded: ' + color + f'{EmojisDownloaded:,}' + res + ' from ' + color +  str(tmp_guild) + res)
                 else:
-                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Downloaded: ' + color + str(EmojisDownloaded) + res + ' from ' + color +  str(tmp_guild) + res)
+                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Downloaded: ' + color + f'{EmojisDownloaded:,}' + res + ' from ' + color +  str(tmp_guild) + res)
             time_took = time.time() - start_time
             if no_dupes != False:
-                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Duplicates Ignored: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Duplicates Ignored: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + f'{EmojisDownloaded:,}' + res)
             else:
-                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + f'{EmojisDownloaded:,}' + res)
             print()
             print()
             isBusy = False
@@ -276,7 +272,7 @@ try:
             if isBusy == True:
                  return
             if msg.guild == None:
-                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color +command_prefix +  'ba' + res + ' accepted in ' + color + str(client.get_channel(msg.channel.id)) + res + '. Please wait...' + res)
+                print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color +command_prefix +  'ba' + res + ' accepted in ' + color + str(client.get_channel(msg.channel.id)).replace('Direct Message', 'DM') + res + '. Please wait...' + res)
             else:
                 print(res + color_t + time.strftime('%I:%M %p', time.localtime()).rstrip() + res +' -> Discord Emoji Backup -> ' + color +command_prefix +  'ba' + res + ' accepted in ' + color + str(msg.guild.name) + res + '. Please wait...' + res)
             for guild in client.guilds:
@@ -305,14 +301,14 @@ try:
                 tmp_guild = str(guild)
                 tmp_guild = (tmp_guild[:14] + '...') if len(tmp_guild) > 17 else tmp_guild
                 if no_dupes != False:
-                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates: ' + color + f'{Duplicates:,}' + res + ' -> Downloaded: ' + color + str(EmojisDownloaded) + res + ' from ' + color +  str(tmp_guild) + res)
+                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Duplicates: ' + color + f'{Duplicates:,}' + res + ' -> Downloaded: ' + color + f'{EmojisDownloaded:,}' + res + ' from ' + color +  str(tmp_guild) + res)
                 else:
-                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Downloaded: ' + color + str(EmojisDownloaded) + res + ' from ' + color +  str(tmp_guild) + res)
+                    progress(i, N, res + 'Elapsed time: ' + color + calc_time(start_time) + res + ' -> Downloaded: ' + color + f'{EmojisDownloaded:,}' + res + ' from ' + color +  str(tmp_guild) + res)
             time_took = time.time() - start_time
             if no_dupes != False:
-                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Duplicates Ignored: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Duplicates Ignored: ' + color + f'{Duplicates:,}' + res + ' -> Emojis Downloaded: ' + color + f'{EmojisDownloaded:,}' + res)
             else:
-                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + str(EmojisDownloaded) + res)
+                progress(i, N, res +  'Finished! Time Took: ' + color + calc_time(start_time) + res + ' -> Emojis Downloaded: ' + color + f'{EmojisDownloaded:,}' + res)
             print()
             print()
             isBusy = False
