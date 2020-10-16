@@ -6,7 +6,7 @@
 * Filters out duplicate emojis using SHA1 file checksums.
 * Has an archival append option.
  
- [![GitHub release](https://img.shields.io/github/v/release/noto-rious/DEB)](https://github.com/noto-rious/DEB/releases)
+ [![GitHub release](https://img.shields.io/github/v/release/noto-rious/DEB?style=plastic)](https://github.com/noto-rious/DEB/releases) ![GitHub All Releases](https://img.shields.io/github/downloads/noto-rious/DEB/total?style=plastic)
 
 ![Screenshot](screenshot.png)
 ### Useage
